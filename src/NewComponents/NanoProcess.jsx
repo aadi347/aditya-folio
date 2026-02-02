@@ -17,11 +17,6 @@ const NanoProcess = () => {
       title: "Data & Storage",
       desc: "PostgreSQL, MongoDB, Prisma ORM, MySQL. Designing efficient schemas and ensuring data integrity at scale.",
     },
-    {
-      num: "04",
-      title: "DevOps & Cloud",
-      desc: "Docker, AWS, Nginx. Automating deployment pipelines and optimizing server infrastructure for performance.",
-    },
   ];
 
   return (
@@ -36,7 +31,7 @@ const NanoProcess = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {techStack.map((item, idx) => (
             <div
               key={idx}

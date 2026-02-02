@@ -4,9 +4,10 @@ import NanoAbout from "./NewComponents/NanoAbout";
 import NanoPhilosophy from "./NewComponents/NanoPhilosophy";
 import NanoWork from "./NewComponents/NanoWork";
 import NanoProcess from "./NewComponents/NanoProcess";
-import NanoServices from "./NewComponents/NanoServices";
+
 import NanoContact from "./NewComponents/NanoContact";
 import CustomCursor from "./NewComponents/CustomCursor";
+import NoiseOverlay from "./NewComponents/NoiseOverlay";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -36,6 +37,7 @@ const App = () => {
     >
       {/* Show Custom Cursor only on Desktop */}
       {!isMobile && <CustomCursor />}
+      <NoiseOverlay />
 
       {/* 
         Stacking Layout Implementation:
@@ -82,15 +84,6 @@ const App = () => {
         <section className={`${sectionClass} z-[5]`}>
           <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
             <NanoProcess />
-          </div>
-        </section>
-
-        {/* Section 6: Services */}
-        <section className={`${sectionClass} z-[6]`}>
-          <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
-            <div className="w-full">
-              <NanoServices />
-            </div>
           </div>
         </section>
 

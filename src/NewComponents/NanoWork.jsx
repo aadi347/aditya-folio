@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 const projects = [
@@ -25,8 +25,8 @@ const projects = [
 
 const NanoWork = () => {
   return (
-    <section className="py-24 px-6 md:px-20 bg-[#0a0a0a] text-white border-t border-white/10">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-24 px-6 md:px-20 bg-[#0a0a0a] text-white border-t border-white/10 relative z-10">
+      <div className="max-w-6xl mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           <div className="md:col-span-3">
             <span className="text-xs font-serif tracking-widest uppercase text-gray-500">
@@ -34,8 +34,8 @@ const NanoWork = () => {
             </span>
           </div>
 
-          <div className="md:col-span-9">
-            <div className="space-y-0">
+          <div className="md:col-span-9 relative">
+            <div className="space-y-0 relative z-20">
               {projects.map((project, index) => (
                 <ProjectItem key={index} project={project} />
               ))}
@@ -59,12 +59,12 @@ const ProjectItem = ({ project }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex flex-col md:flex-row md:items-center justify-between py-12 border-b border-white/10 transition-colors duration-500 group-hover:border-white/30">
+      <div className="flex flex-col md:flex-row md:items-center justify-between py-12 border-b border-white/10 group-hover:border-white/30 relative z-30 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a]/80 backdrop-blur-[1px] transition-all duration-500">
         <div className="space-y-2">
-          <h3 className="text-3xl md:text-5xl font-serif italic transition-colors duration-300 group-hover:text-gray-300">
+          <h3 className="text-3xl md:text-5xl font-serif italic transition-all duration-300 group-hover:text-gray-200 group-hover:translate-x-4">
             {project.title}
           </h3>
-          <p className="text-sm font-serif text-gray-500 uppercase tracking-widest">
+          <p className="text-sm font-serif text-gray-500 uppercase tracking-widest group-hover:translate-x-4 transition-transform duration-300">
             {project.category} — {project.year}
           </p>
         </div>
