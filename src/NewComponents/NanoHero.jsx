@@ -21,8 +21,8 @@ const NanoHero = () => {
           </div>
 
           <h1 className="text-7xl md:text-[9rem] font-serif leading-[0.85] tracking-tight mix-blend-difference">
-            Digital <br />
-            <span className="italic pl-4 text-gray-200">Artisan</span>
+            Tailoring <br />
+            <span className="italic pl-4 text-gray-200">Websites</span>
           </h1>
 
           <p className="max-w-md text-lg md:text-xl font-serif text-gray-400 italic leading-relaxed pt-8 border-l border-white/10 pl-6 ml-2">
