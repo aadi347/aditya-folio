@@ -47,9 +47,9 @@ const NanoHero = () => {
 
           {/* The Image */}
           <img
-            src="/aditya.jpg"
+            src="/aditya_hero.jpg"
             alt="Aditya Kumar"
-            className="w-full h-full object-cover object-center grayscale contrast-[1.1] opacity-40 md:opacity-60 hover:grayscale-0 transition-all duration-1000 ease-in-out"
+            className="w-full h-full object-cover object-center grayscale contrast-[1.15] opacity-45 md:opacity-65 transition-all duration-1000 ease-in-out"
           />
         </motion.div>
       </div>

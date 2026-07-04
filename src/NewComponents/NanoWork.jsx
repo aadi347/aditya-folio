@@ -1,84 +1,139 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
     title: "Startup Bihar",
-    category: "Bihar Startup Website",
+    category: "Government Portal for Department of Industries, Govt of Bihar",
     year: "2024-25",
     link: "https://startup.bihar.gov.in",
+    role: "Frontend Developer",
+    techStack: ["React", "Tailwind CSS", "CSS", "JavaScript", "JQuery"],
+    challenges:
+      "Architected a scalable portal to handle thousands of startup registrations and funding applications. Focused on data security, streamlined approval workflows, and an intuitive user interface for both administrators and applicants.",
   },
   {
-    title: "Buddha Samyak Darshan Museum",
-    category: "Buddha Samyak Darshan Museum Experience & Ticket Booking System",
+    title: "Buddha Museum",
+    category: "Ticket Booking",
     year: "2025",
     link: "https://buddhasamyak.bihar.gov.in/",
+    role: "Lead Frontend Developer",
+    techStack: ["React.js", "Tailwind Css", "CSS", "JavaScript"],
+    challenges:
+      "Built a high-performance ticket booking engine capable of handling concurrent transactions with zero downtime. Integrated virtual museum tours with a minimal, immersive aesthetic.",
   },
   {
     title: "BSFDFC Portal",
-    category: "Bihar State Film Development and Finance Corporation",
+    category: "Single window NOC & Shooting Permission",
     year: "2025-26",
-    link: "https://biharfilm.web.app/",
+    link: "https://film.bihar.gov.in/",
+    role: "Lead Backend Developer",
+    techStack: ["Node.js", "Express", "MySQL", "Prisma ORM", "REST APIs"],
+    challenges:
+      "Designed a dynamic, media-rich portal to showcase Bihar's film industry initiatives. Optimized large image and video assets for fast loading and created cinematic scroll animations.",
   },
+  {
+    title: "Know My India",
+    category: "Data Visualization",
+    year: "2026",
+    link: "https://knowmyindia-rho.vercel.app/",
+    role: "Full Stack Engineer",
+    techStack: ["React", "Tailwind CSS", "D3.js"],
+    challenges:
+      "Created complex data visualizations in a minimal dark-mode aesthetic. Focused on performance and rendering large datasets seamlessly in the browser.",
+  },
+  {
+    title: "Telemetry",
+    category: "ISS Tracker",
+    year: "2026",
+    link: "https://telemetry-pi-swart.vercel.app/",
+    role: "Full Stack Engineer",
+    techStack: [
+      "Cesium.js",
+      "React",
+      "Tailwind Css",
+      "CSS",
+      "JavaScript",
+      "JQuery",
+    ],
+    challenges:
+      "Developed a seamless headless checkout experience with high conversions. Implemented edge caching for instant product page loads.",
+  },
+];
+
+const bentoClasses = [
+  "md:col-span-2 md:row-span-2", // 0: Large
+  "md:col-span-1 md:row-span-1", // 1: Top Right
+  "md:col-span-1 md:row-span-1", // 2: Middle Right
+  "md:col-span-2 md:row-span-1", // 3: Bottom Left Wide
+  "md:col-span-1 md:row-span-1", // 4: Bottom Right
 ];
 
 const NanoWork = () => {
   return (
-    <section className="py-24 px-6 md:px-20 bg-[#0a0a0a] text-white border-t border-white/10 relative z-10">
-      <div className="max-w-6xl mx-auto relative">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-3">
-            <span className="text-xs font-serif tracking-widest uppercase text-gray-500">
-              (002) Selected Works
-            </span>
-          </div>
+    <section className="py-24 px-6 md:px-20 bg-[#0a0a0a] text-white border-t border-white/10 relative z-10 w-full min-h-screen">
+      <div className="max-w-7xl mx-auto relative h-full flex flex-col justify-center">
+        <div className="mb-12">
+          <span className="text-xs font-serif tracking-widest uppercase text-gray-500">
+            (002) Selected Works
+          </span>
+        </div>
 
-          <div className="md:col-span-9 relative">
-            <div className="space-y-0 relative z-20">
-              {projects.map((project, index) => (
-                <ProjectItem key={index} project={project} />
-              ))}
-            </div>
-          </div>
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(250px,auto)] md:auto-rows-[minmax(220px,1fr)] gap-4 md:gap-6 relative z-20">
+          {projects.map((project, index) => (
+            <BentoItem
+              key={index}
+              project={project}
+              spanClass={bentoClasses[index]}
+              index={index}
+            />
+          ))}
         </div>
       </div>
+
     </section>
   );
 };
 
-const ProjectItem = ({ project }) => {
+const BentoItem = ({ project, spanClass, index }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isLarge = index === 0;
 
   return (
     <a
       href={project.link}
       target="_blank"
       rel="noreferrer"
-      className="block group relative"
+      className={`group relative overflow-hidden bg-[#0a0a0a]/50 border border-white/10 hover:border-white/30 backdrop-blur-sm p-6 md:p-8 flex flex-col justify-between transition-all duration-500 hover:bg-[#111111] text-left cursor-pointer ${spanClass}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex flex-col md:flex-row md:items-center justify-between py-12 border-b border-white/10 group-hover:border-white/30 relative z-30 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a]/80 backdrop-blur-[1px] transition-all duration-500">
-        <div className="space-y-2">
-          <h3 className="text-3xl md:text-5xl font-serif italic transition-all duration-300 group-hover:text-gray-200 group-hover:translate-x-4">
-            {project.title}
-          </h3>
-          <p className="text-sm font-serif text-gray-500 uppercase tracking-widest group-hover:translate-x-4 transition-transform duration-300">
-            {project.category} — {project.year}
-          </p>
-        </div>
+      {/* Background Gradient Hover Effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-        <div className="mt-6 md:mt-0 flex items-center gap-4 overflow-hidden">
-          <span
-            className={`text-sm font-serif transition-transform duration-500 ${isHovered ? "translate-x-0 opacity-100" : "translate-x-[20px] opacity-0"}`}
-          >
-            View Case Study
-          </span>
+      {/* Top Header */}
+      <div className="flex justify-between items-start w-full relative z-10">
+        <span className="text-xs font-serif tracking-widest uppercase text-gray-500">
+          {project.year}
+        </span>
+        <div className="overflow-hidden">
           <ArrowUpRight
-            className={`w-5 h-5 transition-transform duration-500 ${isHovered ? "rotate-45 scale-110" : "rotate-0 scale-100"}`}
+            className={`w-5 h-5 text-gray-400 transition-transform duration-500 ${isHovered ? "rotate-45 scale-110 text-white" : "rotate-0 scale-100"}`}
           />
         </div>
+      </div>
+
+      {/* Bottom Content */}
+      <div className="relative z-10 mt-12 md:mt-0 space-y-2 w-full">
+        <h3
+          className={`${isLarge ? "text-4xl md:text-6xl" : "text-3xl md:text-4xl"} font-serif italic transition-all duration-300 group-hover:text-gray-200`}
+        >
+          {project.title}
+        </h3>
+        <p className="text-xs md:text-sm font-serif text-gray-500 uppercase tracking-widest">
+          {project.category}
+        </p>
       </div>
     </a>
   );

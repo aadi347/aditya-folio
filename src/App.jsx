@@ -9,8 +9,35 @@ import NanoContact from "./NewComponents/NanoContact";
 import CustomCursor from "./NewComponents/CustomCursor";
 import NoiseOverlay from "./NewComponents/NoiseOverlay";
 
+
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  // Listen to path changes
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    // Intercept history pushState/replaceState to make routing dynamic
+    const originalPushState = history.pushState;
+    history.pushState = function (...args) {
+      originalPushState.apply(this, args);
+      handleLocationChange();
+    };
+    const originalReplaceState = history.replaceState;
+    history.replaceState = function (...args) {
+      originalReplaceState.apply(this, args);
+      handleLocationChange();
+    };
+
+    window.addEventListener("popstate", handleLocationChange);
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      history.pushState = originalPushState;
+      history.replaceState = originalReplaceState;
+    };
+  }, []);
 
   // Window resize listener to detect mobile
   useEffect(() => {
@@ -21,6 +48,8 @@ const App = () => {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+
 
   // Section styling for the sticky effect
   // sticky: Stick to the top
@@ -38,6 +67,8 @@ const App = () => {
       {/* Show Custom Cursor only on Desktop */}
       {!isMobile && <CustomCursor />}
       <NoiseOverlay />
+      
+
 
       {/* 
         Stacking Layout Implementation:
@@ -95,6 +126,8 @@ const App = () => {
             </div>
           </div>
         </section>
+
+
       </div>
     </main>
   );
