@@ -44,6 +44,29 @@ const interests = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { 
+      duration: 0.6, 
+      ease: [0.16, 1, 0.3, 1],
+      staggerChildren: 0.15,
+      delayChildren: 0.2
+    } 
+  }
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+  }
+};
+
 const NanoPhilosophy = () => {
   return (
     <section className="h-full w-full bg-[#0a0a0a] text-white overflow-hidden flex flex-col justify-center py-20 relative">
@@ -58,10 +81,10 @@ const NanoPhilosophy = () => {
           <motion.div
             key={index}
             className="relative min-w-[85vw] md:min-w-[30vw] h-full flex-shrink-0 group overflow-hidden border border-white/10 snap-center"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            viewport={{ once: true }}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
           >
             {/* Image Container */}
             <div className="absolute inset-0 w-full h-full bg-gray-900">
@@ -76,13 +99,13 @@ const NanoPhilosophy = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80" />
 
             {/* Content Labels */}
-            <div className="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-              <span className="block text-xs font-serif tracking-[0.2em] text-[#22d3ee] uppercase mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+            <div className="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 flex flex-col">
+              <motion.span variants={textVariants} className="block text-xs font-serif tracking-[0.2em] text-[#22d3ee] uppercase mb-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
                 {item.category}
-              </span>
-              <h3 className="text-3xl md:text-4xl font-serif italic text-white/90 group-hover:text-white transition-colors">
+              </motion.span>
+              <motion.h3 variants={textVariants} className="text-3xl md:text-4xl font-serif italic text-white/90 group-hover:text-white transition-colors">
                 {item.title}
-              </h3>
+              </motion.h3>
             </div>
 
             {/* Hover visual cue */}

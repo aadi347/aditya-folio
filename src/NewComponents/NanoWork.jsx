@@ -1,5 +1,27 @@
 import React, { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+  },
+};
 
 const projects = [
   {
@@ -80,7 +102,13 @@ const NanoWork = () => {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(250px,auto)] md:auto-rows-[minmax(220px,1fr)] gap-4 md:gap-6 relative z-20">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(250px,auto)] md:auto-rows-[minmax(220px,1fr)] gap-4 md:gap-6 relative z-20"
+        >
           {projects.map((project, index) => (
             <BentoItem
               key={index}
@@ -89,7 +117,7 @@ const NanoWork = () => {
               index={index}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
 
     </section>
@@ -101,13 +129,15 @@ const BentoItem = ({ project, spanClass, index }) => {
   const isLarge = index === 0;
 
   return (
-    <a
+    <motion.a
+      variants={itemVariants}
       href={project.link}
       target="_blank"
       rel="noreferrer"
       className={`group relative overflow-hidden bg-[#0a0a0a]/50 border border-white/10 hover:border-white/30 backdrop-blur-sm p-6 md:p-8 flex flex-col justify-between transition-all duration-500 hover:bg-[#111111] text-left cursor-pointer ${spanClass}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ viewTransitionName: `project-card-${index}` }}
     >
       {/* Background Gradient Hover Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -135,7 +165,7 @@ const BentoItem = ({ project, spanClass, index }) => {
           {project.category}
         </p>
       </div>
-    </a>
+    </motion.a>
   );
 };
 

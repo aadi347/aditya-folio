@@ -1,14 +1,46 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
 import NanoHero from "./NewComponents/NanoHero";
 import NanoAbout from "./NewComponents/NanoAbout";
 import NanoPhilosophy from "./NewComponents/NanoPhilosophy";
 import NanoWork from "./NewComponents/NanoWork";
 import NanoProcess from "./NewComponents/NanoProcess";
+// import NanoTeam from "./NewComponents/NanoTeam";
 
 import NanoContact from "./NewComponents/NanoContact";
 import CustomCursor from "./NewComponents/CustomCursor";
 import NoiseOverlay from "./NewComponents/NoiseOverlay";
 
+// Wrapper for the smooth fluid view-transition style parallax effect
+const SectionWrapper = ({ children, index }) => {
+  const { scrollY } = useScroll();
+
+  // Calculate window height for scroll mapping (fallback to 800 for SSR)
+  const [winHeight, setWinHeight] = useState(800);
+  useEffect(() => {
+    setWinHeight(window.innerHeight);
+    const handleResize = () => setWinHeight(window.innerHeight);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const start = index * winHeight;
+  const end = (index + 1) * winHeight;
+
+  // As the next section scrolls up over this one, this one moves up, scales down, and fades slightly.
+  const y = useTransform(scrollY, [start, end], [0, -150]);
+  const scale = useTransform(scrollY, [start, end], [1, 0.95]);
+  const opacity = useTransform(scrollY, [start, end], [1, 0.3]);
+
+  return (
+    <motion.div
+      style={{ y, scale, opacity }}
+      className="w-full h-full origin-top"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -49,8 +81,6 @@ const App = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-
-
   // Section styling for the sticky effect
   // sticky: Stick to the top
   // top-0: Position at the top
@@ -67,8 +97,6 @@ const App = () => {
       {/* Show Custom Cursor only on Desktop */}
       {!isMobile && <CustomCursor />}
       <NoiseOverlay />
-      
-
 
       {/* 
         Stacking Layout Implementation:
@@ -81,53 +109,72 @@ const App = () => {
       <div className="flex flex-col relative">
         {/* Section 1: Hero */}
         <section className={`${sectionClass} z-[1] border-b-0`}>
-          <div className="w-full h-full">
+          <SectionWrapper index={0}>
             <NanoHero />
-          </div>
+          </SectionWrapper>
         </section>
 
         {/* Section 2: About */}
         <section className={`${sectionClass} z-[2]`}>
-          <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
-            <div className="w-full">
-              <NanoAbout />
+          <SectionWrapper index={1}>
+            <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
+              <div className="w-full">
+                <NanoAbout />
+              </div>
             </div>
-          </div>
+          </SectionWrapper>
         </section>
 
         {/* Section 3: Philosophy */}
         <section className={`${sectionClass} z-[3]`}>
-          <div className="w-full h-full flex items-center">
-            <NanoPhilosophy />
-          </div>
+          <SectionWrapper index={2}>
+            <div className="w-full h-full flex items-center">
+              <NanoPhilosophy />
+            </div>
+          </SectionWrapper>
         </section>
 
         {/* Section 4: Work */}
         <section className={`${sectionClass} z-[4]`}>
-          <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
-            <div className="w-full">
-              <NanoWork />
+          <SectionWrapper index={3}>
+            <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
+              <div className="w-full">
+                <NanoWork />
+              </div>
             </div>
-          </div>
+          </SectionWrapper>
         </section>
 
         {/* Section 5: Process */}
         <section className={`${sectionClass} z-[5]`}>
-          <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
-            <NanoProcess />
-          </div>
+          <SectionWrapper index={4}>
+            <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
+              <NanoProcess />
+            </div>
+          </SectionWrapper>
         </section>
+
+        {/* Section 6: Team
+        <section className={`${sectionClass} z-[6]`}>
+          <SectionWrapper index={5}>
+            <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center bg-[#FAF9F6]">
+              <div className="w-full">
+                <NanoTeam />
+              </div>
+            </div>
+          </SectionWrapper>
+        </section> */}
 
         {/* Section 7: Contact */}
         <section className={`${sectionClass} z-[7]`}>
-          <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
-            <div className="w-full">
-              <NanoContact />
+          <SectionWrapper index={6}>
+            <div className="w-full h-full overflow-y-auto no-scrollbar flex items-center">
+              <div className="w-full">
+                <NanoContact />
+              </div>
             </div>
-          </div>
+          </SectionWrapper>
         </section>
-
-
       </div>
     </main>
   );

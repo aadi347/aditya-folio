@@ -1,4 +1,30 @@
 import React from "react";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+  },
+};
+
+const borderVariants = {
+  hidden: { scaleX: 0 },
+  visible: { 
+    scaleX: 1, 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+  },
+};
 
 const NanoProcess = () => {
   const techStack = [
@@ -31,12 +57,25 @@ const NanoProcess = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {techStack.map((item, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="space-y-4 border-t border-white/10 pt-8 group hover:border-white/40 transition-colors duration-500"
+              variants={itemVariants}
+              className="space-y-4 pt-8 group transition-colors duration-500 relative"
             >
+              {/* Animated Top Border */}
+              <motion.div 
+                variants={borderVariants}
+                className="absolute top-0 left-0 w-full h-[1px] bg-white/10 group-hover:bg-white/40 transition-colors duration-500 origin-left"
+              />
+
               <span className="text-xs font-serif text-gray-500 block">
                 / {item.num}
               </span>
@@ -46,9 +85,9 @@ const NanoProcess = () => {
               <p className="text-sm text-gray-400 font-serif leading-relaxed pr-4">
                 {item.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
