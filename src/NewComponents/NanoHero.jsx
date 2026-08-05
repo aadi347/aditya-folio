@@ -21,10 +21,14 @@ const NanoHero = () => {
           }}
           className="space-y-6 max-w-2xl"
         >
-          <motion.div 
+          <motion.div
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+              },
             }}
             className="flex items-center gap-4"
           >
@@ -34,10 +38,14 @@ const NanoHero = () => {
             </span>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             variants={{
               hidden: { opacity: 0, y: 40 },
-              visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 1, ease: [0.16, 1, 0.3, 1] },
+              },
             }}
             className="text-7xl md:text-[9rem] font-serif leading-[0.85] tracking-tight mix-blend-difference"
           >
@@ -45,10 +53,18 @@ const NanoHero = () => {
             <span className="italic pl-4 text-gray-200">Websites</span>
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             variants={{
               hidden: { opacity: 0, x: -20 },
-              visible: { opacity: 1, x: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 } }
+              visible: {
+                opacity: 1,
+                x: 0,
+                transition: {
+                  duration: 1,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.4,
+                },
+              },
             }}
             className="max-w-md text-lg md:text-xl font-serif text-gray-400 italic leading-relaxed pt-8 border-l border-white/10 pl-6 ml-2"
           >
@@ -66,7 +82,7 @@ const NanoHero = () => {
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="w-full h-full relative"
-          style={{ viewTransitionName: 'hero-image' }}
+          style={{ viewTransitionName: "hero-image" }}
         >
           {/* The Images Container for Multiple Exposure Effect */}
           <div className="absolute inset-0 w-full h-full">
@@ -79,24 +95,32 @@ const NanoHero = () => {
               transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
               className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-[1.15] mix-blend-lighten"
             />
-            
+
             {/* Echo 2 (Middle) */}
             <motion.img
               src="/aditya_hero.jpg"
               alt=""
               initial={{ x: 0, opacity: 0 }}
               animate={{ x: "-6%", opacity: 0.25 }}
-              transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              transition={{
+                duration: 1.8,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.2,
+              }}
               className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-[1.15] mix-blend-lighten"
             />
-            
+
             {/* Echo 1 (Closest) */}
             <motion.img
               src="/aditya_hero.jpg"
               alt=""
               initial={{ x: 0, opacity: 0 }}
               animate={{ x: "-3%", opacity: 0.35 }}
-              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              transition={{
+                duration: 1.6,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.1,
+              }}
               className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-[1.15] mix-blend-lighten"
             />
 
@@ -115,7 +139,7 @@ const NanoHero = () => {
       </div>
 
       {/* Decorative Year */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
